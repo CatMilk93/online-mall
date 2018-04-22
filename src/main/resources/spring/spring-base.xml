@@ -23,8 +23,8 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <context:component-scan
-            base-package="lovely.baby.online.mall.demo">
-        <context:exclude-filter type="regex" expression="^lovely\.baby\.online\.mall\.demo\.web\..+$"/>
+            base-package="lovely.baby.online.mall">
+        <context:exclude-filter type="regex" expression="^lovely\.baby\.online\.mall\.web\..+$"/>
     </context:component-scan>
 
     <task:executor id="mallExecutor" pool-size="100" keep-alive="40" queue-capacity="1000"/>

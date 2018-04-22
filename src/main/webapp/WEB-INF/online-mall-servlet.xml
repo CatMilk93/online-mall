@@ -19,7 +19,7 @@
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <context:component-scan base-package="lovely.baby.online.mall.demo.web"/>
+    <context:component-scan base-package="lovely.baby.online.mall.web"/>
 
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="useRegisteredExtensionsOnly" value="false"/>
