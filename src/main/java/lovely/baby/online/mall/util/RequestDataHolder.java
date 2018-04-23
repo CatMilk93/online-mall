@@ -44,4 +44,8 @@ public class RequestDataHolder {
     public void setUsername(String _username) {
         username.set(_username);
     }
+
+    public void removeUsername() {
+        username.remove();
+    }
 }

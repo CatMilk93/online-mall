@@ -1,6 +1,7 @@
 package lovely.baby.online.mall.dao.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -69,6 +70,13 @@ public class CartItemDaoImpl implements CartItemDao {
     @Override
     public void deleteById(int id) {
         namedParameterJdbcTemplate.update(DELETE_BY_ID, new MapSqlParameterSource("id", id));
+    }
+
+    private static final String DELETE_BY_IDS = "DELETE FROM cart_item WHERE product_id in (:productIds) ";
+
+    @Override
+    public void deleteByIds(Set<Integer> productIds) {
+        namedParameterJdbcTemplate.update(DELETE_BY_IDS, new MapSqlParameterSource("productIds", productIds));
     }
 
     private static final String UPDATE_NUMBER = "UPDATE cart_item SET number = number + :increment WHERE username = :username AND product_id = :productId";

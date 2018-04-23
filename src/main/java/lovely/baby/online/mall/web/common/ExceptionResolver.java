@@ -37,8 +37,7 @@ public class ExceptionResolver {
     @ResponseBody
     protected Map<String, ?> handle(HttpServletRequest request, HttpServletResponse response, Exception ex) {
         (((ex instanceof MallException) && ((MallException) ex).isExpectedException())
-                ? Constants.BUSINESS_EXCEPTION_LOGGER
-                // 略略略
+                ? Constants.businessExceptionLogger
                 : log).error("URL = {}, referer = {}, ip = {}", request.getRequestURI(),
                         RequestUtils.getReferer(request), RequestDataHolder.getIP(), ex);
         ResolverPropertiesHolder resolverPropertiesHolder = MoreObjects.firstNonNull(

@@ -18,12 +18,6 @@ public class RequestDataInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         RequestDataHolder.setIP(RequestUtils.getIP(request));
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (Constants.CookieNames.USERNAME.equals(cookie.getName())) {
-                RequestDataHolder.setUsername(cookie.getValue());
-            }
-        }
         return true;
     }
 }

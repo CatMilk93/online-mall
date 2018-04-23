@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Constants {
 
-    public final Logger BUSINESS_EXCEPTION_LOGGER = LoggerFactory.getLogger("businessExceptionLogger");
+    public final Logger businessExceptionLogger = LoggerFactory.getLogger("businessExceptionLogger");
 
     @UtilityClass
     public class ResponseErrCodes {
@@ -23,6 +23,6 @@ public class Constants {
     @UtilityClass
     public class CookieNames {
 
-        public final String USERNAME = "username";
+        public final String TOKEN = "token";
     }
 }

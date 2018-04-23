@@ -6,6 +6,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.Charsets;
+import com.google.common.base.Strings;
+import lovely.baby.online.mall.util.AESEncryptUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +53,9 @@ public class UserController {
     // 登录页面
     @GetMapping("login")
     public String login() {
-
+        if (!Strings.isNullOrEmpty(RequestDataHolder.getUsername())) {
+            return "redirect:/";
+        }
         return "login";
     }
 
@@ -58,12 +63,13 @@ public class UserController {
     @RequestMapping(value = "user/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         for (Cookie cookie : request.getCookies()) {
-            if (CookieNames.USERNAME.equals(cookie.getName())) {
+            if (CookieNames.TOKEN.equals(cookie.getName())) {
                 cookie.setPath("/");
                 cookie.setMaxAge(0);
                 response.addCookie(cookie);
             }
         }
+        RequestDataHolder.removeUsername();
         return "redirect:/indexView";
     }
 
@@ -75,7 +81,7 @@ public class UserController {
         if (user == null) {
             return "login";
         }
-        Cookie cookie = new Cookie(CookieNames.USERNAME, user.getUsername());
+        Cookie cookie = new Cookie(CookieNames.TOKEN, AESEncryptUtils.encrypt(user.getUsername(), Charsets.UTF_8));
         cookie.setPath("/");
         response.addCookie(cookie);
         return "redirect:indexView";

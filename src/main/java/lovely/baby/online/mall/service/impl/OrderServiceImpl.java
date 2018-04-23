@@ -1,12 +1,14 @@
 package lovely.baby.online.mall.service.impl;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lovely.baby.online.mall.dao.CartItemDao;
 import lovely.baby.online.mall.dao.OrderItemDao;
 import lovely.baby.online.mall.dao.OrdersDao;
 import lovely.baby.online.mall.model.Order;
@@ -22,6 +24,8 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderItemDao orderItemDao;
 
+    private final CartItemDao cartItemDao;
+
     @Override
     @Transactional
     public void saveOrder(Map<Integer, Integer> productId2NumberMap, String username) {
@@ -34,5 +38,7 @@ public class OrderServiceImpl implements OrderService {
                         .setProductId(it.getKey()) //
                         .setNumber(it.getValue()))
                 .collect(Collectors.toList()));
+        Set<Integer> productIds = productId2NumberMap.keySet();
+        cartItemDao.deleteByIds(productIds);
     }
 }
